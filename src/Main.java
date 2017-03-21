@@ -17,15 +17,15 @@ public class Main {
 		String texto;
 
 		switch (resposta) {
-			case 'c':	chave = prompt("Entre com a chave de encriptação (um numero entre 1 e 26): ", scanner, 1);
+			case 'c':	chave = prompt("Entre com a chave de encriptacao (um numero entre 1 e 26): ", scanner, 1);
 						cifrador = new Cesar(Integer.parseInt(chave));
 						break;
 						
-			case 'p':	chave = prompt("Entre com a chave de encriptação (Somente caracteres)): ", scanner, 1);
+			case 'p':	chave = prompt("Entre com a chave de encriptacao (Somente caracteres)): ", scanner, 1);
 						cifrador = new PlayFair(chave);
 						break;
 			
-			default:	chave = prompt("Entre com a chave de encriptação (Somente caracteres)): ", scanner, 1);
+			default:	chave = prompt("Entre com a chave de encriptacao (Somente caracteres)): ", scanner, 1);
 						cifrador = new Veginere(chave);
 						break;
 		}

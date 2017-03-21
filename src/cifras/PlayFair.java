@@ -73,7 +73,33 @@ public class PlayFair implements Cifra{
 
 	@Override
 	public String decifrar(String texto) {
-		return chave;
+		String textoDecifrado = "";
+		
+		int[] x = new int[2];
+		int[] y = new int[2];
+		
+		for(int i = 0; i < texto.length(); i+=2){
+			for(int j = 0; j < 2; j++){
+				Point ponto = mapeamentoDeCifragem.get(texto.charAt(i + j));
+				x[j] = ponto.x;
+				y[j] = ponto.y;
+			}
+			
+			if(x[0] == x[1]){
+				textoDecifrado += tabelaDeCifragem[x[0]][y[0] == 5 ? 5 : y[0]-1];
+				textoDecifrado += tabelaDeCifragem[x[1]][y[1] == 5 ? 5 : y[1]-1];
+			}
+			else if(y[0] == y[1]){
+				textoDecifrado += tabelaDeCifragem[x[0] == 5 ? 5 : x[0]-1][y[0]];
+				textoDecifrado += tabelaDeCifragem[x[1] == 5 ? 5 : x[1]-1][y[1]];
+			}
+			else{
+				textoDecifrado += tabelaDeCifragem[x[1]][y[0]];
+				textoDecifrado += tabelaDeCifragem[x[0]][y[1]];
+			}
+		}
+				
+		return textoDecifrado;
 	}
 
 }

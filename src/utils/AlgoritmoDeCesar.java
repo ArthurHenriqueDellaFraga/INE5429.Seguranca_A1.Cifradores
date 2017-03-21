@@ -2,7 +2,7 @@ package utils;
 
 public class AlgoritmoDeCesar {
 
-	public String cifrar(String texto, int chave) {
+	public static String cifrar(String texto, int chave) {
 		StringBuilder textoCifrado = new StringBuilder(texto.toUpperCase());
 		
 		for (int i = 0; i < texto.length(); i++) {
@@ -13,7 +13,7 @@ public class AlgoritmoDeCesar {
 		return textoCifrado.toString();
 	}
 
-	public String decifrar(String texto, int chave) {
+	public static String decifrar(String texto, int chave) {
 		StringBuilder textoCifrado = new StringBuilder(texto.toUpperCase());
 
 		for (int i = 0; i < texto.length(); i++) {

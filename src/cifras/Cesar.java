@@ -1,6 +1,7 @@
 package cifras;
 
 import modelo.Cifra;
+import utils.AlgoritmoDeCesar;
 
 public class Cesar implements Cifra{
 
@@ -11,26 +12,15 @@ public class Cesar implements Cifra{
 	}
 	
 	@Override
-	public String cifrar(String texto, int cifra) {
-		StringBuilder cipheredText = new StringBuilder(texto.toUpperCase());
-		for (int i = 0; i < texto.length(); i++) {
-
-			char temp = (char) (((cipheredText.charAt(i) + this.key - 65) % 26) + 65);
-			cipheredText.setCharAt(i, temp);
-		}
-		return cipheredText.toString();
+	public String cifrar(String texto) {
+		String textoCifrado = AlgoritmoDeCesar.cifrar(texto, this.chave);
+		return textoCifrado;
 	}
 
 	@Override
 	public String decifrar(String texto) {
-		StringBuilder cipheredText = new StringBuilder(texto.toUpperCase());
-
-		for (int i = 0; i < texto.length(); i++) {
-
-			char temp = (char) (((cipheredText.charAt(i) - this.key - 90) % 26) + 90);
-			cipheredText.setCharAt(i, temp);
-		}
-		return cipheredText.toString();
+		String textoDecifrado = AlgoritmoDeCesar.decifrar(texto, this.chave);
+		return textoDecifrado;
 	}
 
 }

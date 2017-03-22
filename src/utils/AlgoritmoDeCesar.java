@@ -6,7 +6,7 @@ public class AlgoritmoDeCesar {
 		StringBuilder textoCifrado = new StringBuilder(texto.toUpperCase());
 		
 		for (int i = 0; i < texto.length(); i++) {
-			char temp = (char) ((textoCifrado.charAt(i) + chave) % 26);
+			char temp = (char) (((textoCifrado.charAt(i) + chave - 65) % 26) + 65);
 			textoCifrado.setCharAt(i, temp);
 		}
 
@@ -17,7 +17,7 @@ public class AlgoritmoDeCesar {
 		StringBuilder textoCifrado = new StringBuilder(texto.toUpperCase());
 
 		for (int i = 0; i < texto.length(); i++) {
-			char temp = (char) ((textoCifrado.charAt(i) - chave) % 26);
+			char temp = (char) (((textoCifrado.charAt(i) - chave - 90) % 26) + 90);
 			textoCifrado.setCharAt(i, temp);
 		}
 		

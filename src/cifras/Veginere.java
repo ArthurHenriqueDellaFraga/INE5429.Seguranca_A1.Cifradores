@@ -19,7 +19,7 @@ public class Veginere implements Cifra {
 		
 		for(int i = 0; i < tamanhoTexto; i++){
 			int offsetChave = this.offsetChave(chaveExpandida.charAt(i));
-			textoCifrado += AlgoritmoDeCesar.cifrar(texto.substring(i, i), offsetChave);
+			textoCifrado += AlgoritmoDeCesar.cifrar(texto.substring(i, i + 1), offsetChave);
 		}
 		
 		return textoCifrado;
@@ -33,7 +33,7 @@ public class Veginere implements Cifra {
 		
 		for(int i = 0; i < tamanhoTexto; i++){
 			int offsetChave = this.offsetChave(chaveExpandida.charAt(i));
-			textoDecifrado += AlgoritmoDeCesar.decifrar(texto.substring(i, i), offsetChave);
+			textoDecifrado += AlgoritmoDeCesar.decifrar(texto.substring(i, i + 1), offsetChave);
 		}
 		
 		return textoDecifrado;
@@ -51,7 +51,7 @@ public class Veginere implements Cifra {
 	}
 	
 	private int offsetChave(char charAt) {
-		return 0;
+		return charAt - 65;
 	}
 
 }

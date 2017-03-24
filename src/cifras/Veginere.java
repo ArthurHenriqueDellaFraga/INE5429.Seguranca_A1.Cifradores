@@ -1,9 +1,9 @@
 package cifras;
 
-import modelo.Cifra;
+import modelo.Cifrador;
 import utils.AlgoritmoDeCesar;
 
-public class Veginere implements Cifra {
+public class Veginere implements Cifrador {
 
 	private String chave;
 	

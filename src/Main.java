@@ -3,11 +3,12 @@ import java.util.Scanner;
 import cifras.Cesar;
 import cifras.PlayFair;
 import cifras.Veginere;
-import modelo.Cifra;
+import modelo.Cifrador;
 
 public class Main {
 	
 	public static void main(String[] args){
+		
 		executar();
 	}
 
@@ -16,7 +17,7 @@ public class Main {
 
 		char resposta = prompt("Selecione um cifrador - (c)esar, (p)layfair ou (v)iginere: ", scanner, 1).charAt(0);
 		
-		Cifra cifrador = new Cesar(1);
+		Cifrador cifrador = new Cesar(1);
 		String chave;
 
 		switch (resposta) {

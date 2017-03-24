@@ -1,6 +1,6 @@
 package modelo;
 
-public interface Cifra {
+public interface Cifrador {
 
 	String cifrar(String texto);
 

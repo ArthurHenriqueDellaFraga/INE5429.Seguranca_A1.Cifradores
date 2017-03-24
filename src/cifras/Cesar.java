@@ -1,9 +1,9 @@
 package cifras;
 
-import modelo.Cifra;
+import modelo.Cifrador;
 import utils.AlgoritmoDeCesar;
 
-public class Cesar implements Cifra{
+public class Cesar implements Cifrador{
 
 	private int chave;
 	

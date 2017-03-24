@@ -3,16 +3,16 @@ package cifras;
 import java.awt.Point;
 import java.util.HashMap;
 
-import modelo.Cifra;
+import modelo.Cifrador;
 
-public class PlayFair implements Cifra{
+public class PlayFair implements Cifrador{
 	private String chave = "";
 	char[][] tabelaDeCifragem = new char[5][5];
 	HashMap<Character, Point> mapeamentoDeCifragem = new HashMap<Character, Point>();
 	
 	public PlayFair(String chave){
 		this.chave = chave;		
-		String alfabeto = this.removerCaracteresRepetidos(chave + "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		String alfabeto = this.removerLetrasRepetidas(chave + "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		
 		for(int i = 0; i < 25; i++){
 			tabelaDeCifragem[i/5][i%5] = alfabeto.charAt(i);
@@ -22,7 +22,7 @@ public class PlayFair implements Cifra{
 	
 	//UTILIDADE
 	
-	private String removerCaracteresRepetidos(String texto){
+	private String removerLetrasRepetidas(String texto){
 		String retorno = "";
 		for(int i = 0; i < texto.length(); i++){
 			CharSequence caracter = texto.substring(i, i+1);			
@@ -32,74 +32,62 @@ public class PlayFair implements Cifra{
 		}
 		return retorno;
 	}
+	
+	private String separarLetrasRepetidas(String texto){
+		String retorno = "";
+		
+		for(int i=0; i < texto.length(); i+=2){
+			CharSequence caracter1 = texto.substring(i, i+1);	
+			CharSequence caracter2 = i == texto.length()-1 || texto.substring(i+1, i+2).equals(caracter1) ? "X" : texto.substring(i+1, i+2);
+			
+			retorno += caracter1 + "" + caracter2;
+		}
+		return retorno;
+	}
 
 	//FUNCOES
 	
 	@Override
-	public String cifrar(String texto){		
-		texto = this.removerCaracteresRepetidos(texto);
-		if(texto.length() / 2 == 1){
-			texto += tabelaDeCifragem[4][4];
-			System.out.println(texto);
-		}
+	public String cifrar(String texto){	
+		texto = this.separarLetrasRepetidas(texto);
 		String textoCifrado = "";
 		
-		int[] x = new int[2];
-		int[] y = new int[2];
-		
 		for(int i = 0; i < texto.length(); i+=2){
-			for(int j = 0; j < 2; j++){
-				Point ponto = mapeamentoDeCifragem.get(texto.charAt(i + j));
-				x[j] = ponto.x;
-				y[j] = ponto.y;
-			}
-			
-			if(x[0] == x[1]){
-				textoCifrado += tabelaDeCifragem[x[0]][y[0] == 5 ? 5 : y[0]+1];
-				textoCifrado += tabelaDeCifragem[x[1]][y[1] == 5 ? 5 : y[1]+1];
-			}
-			else if(y[0] == y[1]){
-				textoCifrado += tabelaDeCifragem[x[0] == 5 ? 5 : x[0]+1][y[0]];
-				textoCifrado += tabelaDeCifragem[x[1] == 5 ? 5 : x[1]+1][y[1]];
-			}
-			else{
-				textoCifrado += tabelaDeCifragem[x[1]][y[0]];
-				textoCifrado += tabelaDeCifragem[x[0]][y[1]];
-			}
+			textoCifrado = traduzir(texto.charAt(i), texto.charAt(i+1), +1);
 		}
 				
 		return textoCifrado;
 	}
-
+	
 	@Override
 	public String decifrar(String texto) {
 		String textoDecifrado = "";
 		
-		int[] x = new int[2];
-		int[] y = new int[2];
-		
 		for(int i = 0; i < texto.length(); i+=2){
-			for(int j = 0; j < 2; j++){
-				Point ponto = mapeamentoDeCifragem.get(texto.charAt(i + j));
-				x[j] = ponto.x;
-				y[j] = ponto.y;
-			}
-			
-			if(x[0] == x[1]){
-				textoDecifrado += tabelaDeCifragem[x[0]][y[0] == 5 ? 5 : y[0]-1];
-				textoDecifrado += tabelaDeCifragem[x[1]][y[1] == 5 ? 5 : y[1]-1];
-			}
-			else if(y[0] == y[1]){
-				textoDecifrado += tabelaDeCifragem[x[0] == 5 ? 5 : x[0]-1][y[0]];
-				textoDecifrado += tabelaDeCifragem[x[1] == 5 ? 5 : x[1]-1][y[1]];
-			}
-			else{
-				textoDecifrado += tabelaDeCifragem[x[1]][y[0]];
-				textoDecifrado += tabelaDeCifragem[x[0]][y[1]];
-			}
+			textoDecifrado = traduzir(texto.charAt(i), texto.charAt(i+1), -1);
 		}
 				
 		return textoDecifrado;
 	}
-
+	
+	public String traduzir(char a, char b, int sentido){
+		String traducao = "";
+		Point posicaoA = mapeamentoDeCifragem.get(a);
+		Point posicaoB = mapeamentoDeCifragem.get(b);
+			
+		if (posicaoA.x == posicaoB.x){
+			traducao += tabelaDeCifragem[posicaoA.x][(posicaoA.y +sentido) % 5];
+			traducao += tabelaDeCifragem[posicaoB.x][(posicaoB.y +sentido) % 5];
+		}
+		else if(posicaoA.y == posicaoB.y){
+			traducao += tabelaDeCifragem[(posicaoA.x +sentido) % 5][posicaoA.y];
+			traducao += tabelaDeCifragem[(posicaoB.x +sentido) % 5][posicaoB.y];
+		}
+		else{
+			traducao += tabelaDeCifragem[posicaoB.x][posicaoA.y];
+			traducao += tabelaDeCifragem[posicaoA.x][posicaoB.y];
+		}
+		
+		return traducao;
+	}
 }

@@ -8,7 +8,6 @@ import modelo.Cifrador;
 public class Main {
 	
 	public static void main(String[] args){
-		
 		executar();
 	}
 

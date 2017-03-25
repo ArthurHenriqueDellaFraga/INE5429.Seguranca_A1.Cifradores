@@ -33,7 +33,7 @@ public class PlayFair implements Cifrador{
 		return retorno;
 	}
 	
-	private String separarLetrasRepetidas(String texto){
+	private String tratarLetrasRepetidas(String texto){
 		String retorno = "";
 		
 		for(int i=0; i < texto.length(); i+=2){
@@ -49,11 +49,11 @@ public class PlayFair implements Cifrador{
 	
 	@Override
 	public String cifrar(String texto){	
-		texto = this.separarLetrasRepetidas(texto);
+		texto = this.tratarLetrasRepetidas(texto);
 		String textoCifrado = "";
 		
 		for(int i = 0; i < texto.length(); i+=2){
-			textoCifrado = traduzir(texto.charAt(i), texto.charAt(i+1), +1);
+			textoCifrado += traduzir(texto.charAt(i), texto.charAt(i+1), 1);
 		}
 				
 		return textoCifrado;
@@ -64,13 +64,17 @@ public class PlayFair implements Cifrador{
 		String textoDecifrado = "";
 		
 		for(int i = 0; i < texto.length(); i+=2){
-			textoDecifrado = traduzir(texto.charAt(i), texto.charAt(i+1), -1);
+			textoDecifrado += traduzir(texto.charAt(i), texto.charAt(i+1), 4);
 		}
+		
+		
 				
 		return textoDecifrado;
 	}
 	
 	public String traduzir(char a, char b, int sentido){
+		assert sentido > 0;
+		
 		String traducao = "";
 		Point posicaoA = mapeamentoDeCifragem.get(a);
 		Point posicaoB = mapeamentoDeCifragem.get(b);
